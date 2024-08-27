@@ -1,18 +1,19 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "@/firebaseConfig";
 import {
-  createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  User,
+  createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-  User,
 } from "firebase/auth";
+import { createContext, useContext, useEffect, useState } from "react";
 
-interface IAuthProviderProps {
+interface IUserAuthProviderProps {
   children: React.ReactNode;
 }
+
 type AuthContextData = {
   user: User | null;
   logIn: typeof logIn;
@@ -22,10 +23,12 @@ type AuthContextData = {
 };
 
 const logIn = (email: string, password: string) => {
+  console.log("login function in the context", auth, email, password);
   return signInWithEmailAndPassword(auth, email, password);
 };
 
 const signUp = (email: string, password: string) => {
+  console.log("signUp function in the context", auth, email, password);
   return createUserWithEmailAndPassword(auth, email, password);
 };
 
@@ -37,6 +40,7 @@ const googleSignIn = () => {
   const googleAuthProvider = new GoogleAuthProvider();
   return signInWithPopup(auth, googleAuthProvider);
 };
+
 export const userAuthContext = createContext<AuthContextData>({
   user: null,
   logIn,
@@ -45,22 +49,21 @@ export const userAuthContext = createContext<AuthContextData>({
   googleSignIn,
 });
 
-export const UserAuthProvider: React.FunctionComponent<IAuthProviderProps> = ({
-  children,
-}) => {
+export const UserAuthProvider: React.FunctionComponent<
+  IUserAuthProviderProps
+> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("The logged in user state is: ", user);
-        setUser(user);
-      }
-
-      return () => {
-        unsubscribe();
-      };
+      console.log("I am in useEffect and user is : ", user);
+      setUser(user);
     });
-  });
+
+    // Properly handle cleanup
+    return () => unsubscribe();
+  }, []);
+
   const value: AuthContextData = {
     user,
     logIn,
@@ -68,7 +71,6 @@ export const UserAuthProvider: React.FunctionComponent<IAuthProviderProps> = ({
     logOut,
     googleSignIn,
   };
-
   return (
     <userAuthContext.Provider value={value}>
       {children}
@@ -77,5 +79,5 @@ export const UserAuthProvider: React.FunctionComponent<IAuthProviderProps> = ({
 };
 
 export const useUserAuth = () => {
-  useContext(userAuthContext);
+  return useContext(userAuthContext);
 };

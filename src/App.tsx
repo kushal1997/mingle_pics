@@ -5,7 +5,10 @@ import { UserAuthProvider } from "./context/userAuthContext";
 
 interface IAppProps {}
 
-const App: React.FunctionComponent<IAppProps> = (props) => {
+const App: React.FunctionComponent<IAppProps> = () => {
+  console.log("App copmonet loaded ==============");
+  // console.log("Firebase API Key:", import.meta.env.VITE_API_KEY);
+  // console.log("Environment Variables:", import.meta.env);
   return (
     <>
       <UserAuthProvider>

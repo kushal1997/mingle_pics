@@ -1,3 +1,4 @@
+import { img1, img2, img3, img4 } from "@/assets/images";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -67,7 +68,7 @@ const SignUp: React.FunctionComponent<ISignUpProps> = () => {
       await signUp(userData.email, userData.password);
       navigate("/");
     } catch (err) {
-      console.log("ERROR: ", err);
+      console.error("ERROR: ", err);
     }
 
     // Perform any API calls here
@@ -79,9 +80,29 @@ const SignUp: React.FunctionComponent<ISignUpProps> = () => {
   };
 
   return (
-    <div className="bg-slate-800 w-screen h-screen">
+    <div className="bg-slate-800 w-full h-screen">
       <div className="container mx-auto p-6 flex h-full">
         <div className="flex justify-center items-center w-full">
+          <div className="p-6 w-2/3 hidden lg:block md:block">
+            <div className="grid grid-cols-2 gap-2">
+              <img
+                className=" w-2/3 h-auto aspect-video rounded-3xl place-self-end"
+                src={img2}
+              />
+              <img
+                className=" w-2/4 h-auto aspect-auto rounded-3xl"
+                src={img1}
+              />
+              <img
+                className=" w-2/4 h-auto aspect-auto rounded-3xl place-self-end"
+                src={img4}
+              />
+              <img
+                className=" w-2/3 h-auto aspect-video rounded-3xl"
+                src={img3}
+              />
+            </div>
+          </div>
           <div className=" rounded-xl border bg-card text-card-foreground shadow-sm">
             <Card>
               <CardHeader className="space-y-1">
@@ -130,7 +151,7 @@ const SignUp: React.FunctionComponent<ISignUpProps> = () => {
                   </div>
                   <div className="grid gap-2 relative">
                     <Label htmlFor="password">Password</Label>
-                    <Input id="password" onChange={handleInputChange} />
+                    <Input id="password"  type="password" onChange={handleInputChange} />
                   </div>
                   <div className="grid gap-2 relative">
                     <Label htmlFor="confirmPassword">Confirm Password</Label>
