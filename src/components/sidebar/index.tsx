@@ -53,8 +53,8 @@ const navItems = [
     icon: settingsIcon,
   },
 ];
-const Sidebar: React.FunctionComponent<ISidebarProps> = (props) => {
-    const {logOut}=useUserAuth()
+const Sidebar: React.FunctionComponent<ISidebarProps> = () => {
+  const { logOut } = useUserAuth();
   const { pathname } = useLocation();
   return (
     <>
@@ -64,39 +64,31 @@ const Sidebar: React.FunctionComponent<ISidebarProps> = (props) => {
         </div>
         {navItems.map((item) => (
           <>
-            <div
+            <Link
+              to={item.link}
               className={cn(
                 buttonVariants({ variant: "default" }),
                 pathname === item.link
-                  ? "bg-white text-white-800 hover:bg-white rounded-none"
+                  ? "bg-white text-white-800 hover:bg-white hover:text-black rounded-none"
                   : "hover:bg-slate-950 hover:text-white bg-transparent rounded-none",
                 "justify-start"
               )}
               key={item.name}
             >
-              <Link
-                to={item.link}
-                className={
-                  pathname === item.link
-                    ? "flex hover:text-black"
-                    : `flex hover:text-white`
-                }
-              >
-                <span>
-                  <img
-                    src={item.icon}
-                    alt={item.name}
-                    className="w-5 h-5 mr-2"
-                    style={{
-                      filter: `${
-                        pathname === item.link ? "invert(0)" : "invert(1)"
-                      }`,
-                    }}
-                  />
-                </span>
-                <span>{item.name}</span>
-              </Link>
-            </div>
+              <span>
+                <img
+                  src={item.icon}
+                  alt={item.name}
+                  className="w-5 h-5 mr-2"
+                  style={{
+                    filter: `${
+                      pathname === item.link ? "invert(0)" : "invert(1)"
+                    }`,
+                  }}
+                />
+              </span>
+              <span>{item.name}</span>
+            </Link>
           </>
         ))}
 
