@@ -24,3 +24,13 @@ export interface PostType{
     userId:string | null;
     date:Date;
 }
+
+export interface DocumentResponse{
+    id:string;
+    caption:string;
+    photos:PhotoMeta[];
+    likes:number;
+    userlikes:[];
+    userId:string | null;
+    date:Date;
+}
