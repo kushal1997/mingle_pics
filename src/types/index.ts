@@ -16,7 +16,7 @@ export interface PhotoMeta{
     cdnUrl:string;
     uuid:string;
 }
-export interface Post{
+export interface PostType{
     caption:string;
     photos:PhotoMeta[];
     likes:number;
