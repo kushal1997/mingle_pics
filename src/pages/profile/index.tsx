@@ -80,6 +80,8 @@ const Profile: React.FunctionComponent<IProfileProps> = () => {
 
   React.useEffect(() => {
     if (user != null) {
+      console.log("user profile data is ", user);
+
       getAllPost(user.uid);
       getUserProfileInfo(user.uid);
     }

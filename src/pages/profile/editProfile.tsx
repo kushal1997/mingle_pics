@@ -10,7 +10,7 @@ import {
   createUserProfile,
   updateuserProfile,
 } from "@/repository/user.service";
-import { FileEntry, UserProfile } from "@/types";
+import { FileEntry, ProfileInfo, UserProfile } from "@/types";
 import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -20,7 +20,7 @@ const EditProfile: React.FunctionComponent<IEditProfileProps> = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { id, userId, userBio, displayName, photoURL } = location.state;
-  const { user } = useUserAuth();
+  const { user, updateProfileInfo } = useUserAuth();
   const [fileEntry, setFileEntry] = React.useState<FileEntry>({
     files: [],
   });
@@ -45,7 +45,13 @@ const EditProfile: React.FunctionComponent<IEditProfileProps> = () => {
     } catch (error) {
       console.error(error);
     }
-    navigate("/profile")
+    const profileInfo: ProfileInfo = {
+      user: user!,
+      displayName: data.displayName,
+      photoURL: data.photoURL,
+    };
+    updateProfileInfo(profileInfo);
+    navigate("/profile");
   };
 
   React.useEffect(() => {
