@@ -12,11 +12,13 @@ import { FileEntry } from "@/types";
 interface IFileUploaderProps {
   files: FileEntry;
   onChange: (fileEntry: FileEntry) => void;
+  preview: boolean;
 }
 
 const FileUploader: React.FunctionComponent<IFileUploaderProps> = ({
   files,
   onChange,
+  preview,
 }) => {
   const [uploadedFiles, setUploadedFiles] = React.useState<
     OutputFileEntry<"success">[]
@@ -67,31 +69,36 @@ const FileUploader: React.FunctionComponent<IFileUploaderProps> = ({
         apiRef={ctxProviderRef}
         onChange={handleUploadChange}
         onModalClose={handleModalCloseEvent}
-        multiple={true}
+        multiple={preview}
         confirmUpload={true}
         removeCopyright={true}
       />
-
-      <div className="grid grid-cols-2 gap-4 mt-8">
-        {files.files?.map((file) => (
-          <>
-            <div className="relative" key={file.uuid}>
-              <img
-                src={`${file.cdnUrl}-/format/webp/-/quality/smart/-/stretch/fill/`}
-                alt={`${file.cdnUrl}`}
-                key={file.uuid}
-              />
-              <div className="flex cursor-pointer justify-center absolute -right-2 -top-2 bg-white border-2 border-slate-800 rounded-full w-7 h-7 hover:bg-pink-200  ">
-                <button
-                  className="text-slate-800 text-center"
-                  type="button"
-                  onClick={() => handleRemoveClick(file.uuid)}
-                >❌</button>
+      {preview ? (
+        <div className="grid grid-cols-2 gap-4 mt-8">
+          {files.files?.map((file) => (
+            <>
+              <div className="relative" key={file.uuid}>
+                <img
+                  src={`${file.cdnUrl}-/format/webp/-/quality/smart/-/stretch/fill/`}
+                  alt={`${file.cdnUrl}`}
+                  key={file.uuid}
+                />
+                <div className="flex cursor-pointer justify-center absolute -right-2 -top-2 bg-white border-2 border-slate-800 rounded-full w-7 h-7 hover:bg-pink-200  ">
+                  <button
+                    className="text-slate-800 text-center"
+                    type="button"
+                    onClick={() => handleRemoveClick(file.uuid)}
+                  >
+                    ❌
+                  </button>
+                </div>
               </div>
-            </div>
-          </>
-        ))}
-      </div>
+            </>
+          ))}
+        </div>
+      ) : (
+        <></>
+      )}
     </>
   );
 };

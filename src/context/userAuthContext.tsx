@@ -1,4 +1,5 @@
 import { auth } from "@/firebaseConfig";
+import { ProfileInfo } from "@/types";
 import {
   GoogleAuthProvider,
   User,
@@ -7,6 +8,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -20,6 +22,7 @@ type AuthContextData = {
   signUp: typeof signUp;
   logOut: typeof logOut;
   googleSignIn: typeof googleSignIn;
+  updateProfileInfo: typeof updateProfileInfo;
 };
 
 const logIn = (email: string, password: string) => {
@@ -41,12 +44,21 @@ const googleSignIn = () => {
   return signInWithPopup(auth, googleAuthProvider);
 };
 
+const updateProfileInfo = (profileInfo: ProfileInfo) => {
+  console.log("profileInfo==============", profileInfo);
+  return updateProfile(profileInfo.user!, {
+    displayName: profileInfo.displayName,
+    photoURL: profileInfo.photoURL,
+  });
+};
+
 export const userAuthContext = createContext<AuthContextData>({
   user: null,
   logIn,
   signUp,
   logOut,
   googleSignIn,
+  updateProfileInfo,
 });
 
 export const UserAuthProvider: React.FunctionComponent<
@@ -70,6 +82,7 @@ export const UserAuthProvider: React.FunctionComponent<
     signUp,
     logOut,
     googleSignIn,
+    updateProfileInfo,
   };
   return (
     <userAuthContext.Provider value={value}>
