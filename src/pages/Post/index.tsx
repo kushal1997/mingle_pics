@@ -82,7 +82,7 @@ const Post: React.FunctionComponent<IPostProps> = () => {
                 <Label className="mb-4" htmlFor="photo">
                   Photos
                 </Label>
-                <FileUploader files={fileEntry} onChange={setFileEntry} />
+                <FileUploader files={fileEntry} onChange={setFileEntry} preview={true}/>
               </div>
               <div>
                 <Button className="mt-8 w-32" type="submit">

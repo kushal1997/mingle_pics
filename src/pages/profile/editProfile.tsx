@@ -20,6 +20,8 @@ const EditProfile: React.FunctionComponent<IEditProfileProps> = () => {
   const [fileEntry, setFileEntry] = React.useState<FileEntry>({
     files: [],
   });
+  console.log("slected file is ", fileEntry);
+
   const [data, setData] = React.useState<UserProfile>({
     userId,
     userBio,
@@ -27,7 +29,15 @@ const EditProfile: React.FunctionComponent<IEditProfileProps> = () => {
     photoURL,
   });
 
-  const updateProfile = () => {};
+  const updateProfile = async (e: React.MouseEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
+  React.useEffect(() => {
+    if (fileEntry.files.length > 0) {
+      setData({ ...data, photoURL: fileEntry.files[0].cdnUrl || "" });
+    }
+  }, [fileEntry]);
   return (
     <>
       <Layout>
@@ -44,13 +54,25 @@ const EditProfile: React.FunctionComponent<IEditProfileProps> = () => {
                     Profile picture
                   </Label>
                   <div className="mb-4">
-                    <img
-                      src={data.photoURL ? data.photoURL : avatar}
-                      alt=""
-                      className="w-28 h-28 rounded-full border-2 border-slate-800 object-cover"
-                    />
+                    {fileEntry.files.length > 0 ? (
+                      <img
+                        src={fileEntry.files[0].cdnUrl || ""}
+                        alt=""
+                        className="w-28 h-28 rounded-full border-2 border-slate-800 object-cover"
+                      />
+                    ) : (
+                      <img
+                        src={data.photoURL ? data.photoURL : avatar}
+                        alt=""
+                        className="w-28 h-28 rounded-full border-2 border-slate-800 object-cover"
+                      />
+                    )}
                   </div>
-                  <FileUploader files={fileEntry} onChange={setFileEntry} />
+                  <FileUploader
+                    files={fileEntry}
+                    onChange={setFileEntry}
+                    preview={false}
+                  />
                 </div>
                 <div className="flex flex-col">
                   <Label className="mb-4" htmlFor="displayName">
@@ -61,7 +83,7 @@ const EditProfile: React.FunctionComponent<IEditProfileProps> = () => {
                     id="displayName"
                     placeholder="Enter your display name "
                     value={data.displayName}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement >) =>
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       setData({ ...data, displayName: e.target.value })
                     }
                   />
