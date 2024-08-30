@@ -6,4 +6,6 @@ import img5 from "@/assets/images/image5.jpg";
 import img6 from "@/assets/images/image6.jpg";
 import img7 from "@/assets/images/image7.jpg";
 
-export {img1,img2,img3,img4,img5,img6,img7};
+import avatar from "@/assets/images/avatar.jpg"
+
+export {img1,img2,img3,img4,img5,img6,img7,avatar};
