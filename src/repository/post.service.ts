@@ -1,5 +1,5 @@
 import { db } from "@/firebaseConfig";
-import { PostType } from "@/types";
+import { DocumentResponse, PostType } from "@/types";
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
 
 const COLLECTION_NAME="posts";
@@ -8,9 +8,28 @@ export const createPost=(post:PostType)=>{
     return addDoc(collection(db,COLLECTION_NAME),post);
 }
 
-export const getPosts=()=>{
+export const getPosts=async()=>{
+try {
     const q =query(collection(db,COLLECTION_NAME),orderBy("date","desc"));
-    return getDocs(q)
+    const querySnapshot=await getDocs(q);
+    const tempArr: DocumentResponse[] = [];
+    if(querySnapshot.size >0){
+        querySnapshot.forEach(doc=>{
+            const data=doc.data() as PostType;
+            const responseObj:DocumentResponse={
+                id:doc.id,
+                ...data,
+            }
+            tempArr.push(responseObj);
+        })
+        return tempArr
+    }else{
+        console.error("No such document");
+        
+    }
+} catch (error) {
+    console.error(error);
+}   
 }
 
 export const getPostByUserId=(id:string)=>{
