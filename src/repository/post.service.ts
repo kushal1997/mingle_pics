@@ -1,5 +1,5 @@
 import { db } from "@/firebaseConfig";
-import { DocumentResponse, PostType } from "@/types";
+import { DocumentResponse, PostType, ProfileInfo } from "@/types";
 import {
   addDoc,
   collection,
@@ -66,4 +66,24 @@ export const updateLikesOnPost = (
     likes: likes,
     userlikes: userLikes,
   });
+};
+
+export const updateUserInfoOnPosts = async (profileInfo: ProfileInfo) => {
+  const q = query(
+    collection(db, COLLECTION_NAME),
+    where("userId", "==", profileInfo.user?.uid)
+  );
+  const querySnapshot = await getDocs(q);
+
+  if (querySnapshot.size > 0) {
+    querySnapshot.forEach((document) => {
+      const docRef = doc(db, COLLECTION_NAME, document.id);
+      updateDoc(docRef, {
+        username: profileInfo.displayName,
+        photoURL: profileInfo.photoURL,
+      });
+    });
+  } else {
+    console.error("No such document");
+  }
 };

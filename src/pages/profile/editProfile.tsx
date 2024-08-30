@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useUserAuth } from "@/context/userAuthContext";
+import { updateUserInfoOnPosts } from "@/repository/post.service";
 import {
   createUserProfile,
   updateuserProfile,
@@ -51,6 +52,7 @@ const EditProfile: React.FunctionComponent<IEditProfileProps> = () => {
       photoURL: data.photoURL,
     };
     updateProfileInfo(profileInfo);
+    updateUserInfoOnPosts(profileInfo)
     navigate("/profile");
   };
 

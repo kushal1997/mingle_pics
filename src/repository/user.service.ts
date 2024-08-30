@@ -31,7 +31,7 @@ export const getUserProfile = async (userId: string) => {
       return tempdata;
     } else {
       console.error("No such document");
-      return tempdata;
+      return null;
     }
   } catch (error) {
     console.error(error);

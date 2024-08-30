@@ -45,6 +45,8 @@ const Post: React.FunctionComponent<IPostProps> = () => {
         ...post,
         userId: user?.uid || null,
         photos: photoMeta,
+        username: user.displayName!,
+        photoURL: user.photoURL!,
       };
 
       console.log("Our final post would be like ", newPost);
@@ -82,7 +84,11 @@ const Post: React.FunctionComponent<IPostProps> = () => {
                 <Label className="mb-4" htmlFor="photo">
                   Photos
                 </Label>
-                <FileUploader files={fileEntry} onChange={setFileEntry} preview={true}/>
+                <FileUploader
+                  files={fileEntry}
+                  onChange={setFileEntry}
+                  preview={true}
+                />
               </div>
               <div>
                 <Button className="mt-8 w-32" type="submit">

@@ -23,6 +23,8 @@ export interface PostType{
     likes:number;
     userlikes:[];
     userId:string | null;
+    username?:string,
+    photoURL?:string,
     date:Date;
 }
 
@@ -33,6 +35,8 @@ export interface DocumentResponse{
     likes?:number;
     userlikes?:[];
     userId?:string | null;
+    username?:string,
+    photoURL?:string,
     date?:Date;
 }
 
