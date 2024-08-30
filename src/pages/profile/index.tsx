@@ -6,11 +6,13 @@ import { getPostByUserId } from "@/repository/post.service";
 import { DocumentResponse, PostType, ProfileResponse } from "@/types";
 import { Edit2Icon, HeartIcon } from "lucide-react";
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface IProfileProps {}
 
 const Profile: React.FunctionComponent<IProfileProps> = () => {
   const { user } = useUserAuth();
+  const navigate = useNavigate();
   const initialUserInfo: ProfileResponse = {
     id: "",
     userId: user?.uid,
@@ -20,55 +22,59 @@ const Profile: React.FunctionComponent<IProfileProps> = () => {
   };
   const [userInfo, setUserInfo] =
     React.useState<ProfileResponse>(initialUserInfo);
-    const [data, setData] = React.useState<DocumentResponse[]>([]);
+  const [data, setData] = React.useState<DocumentResponse[]>([]);
 
-    const getAllPost = async (id: string) => {
-      try {
-        const querySnapshot = await getPostByUserId(id);
-        const tempArr: DocumentResponse[] = [];
-        if (querySnapshot.size > 0) {
-          querySnapshot.forEach((doc) => {
-            const data = doc.data() as PostType;
-            const responseObj: DocumentResponse = {
-              id: doc.id,
-              ...data,
-            };
-            console.log("the response object is", responseObj);
-            tempArr.push(responseObj);
-          });
-          setData(tempArr);
-        } else {
-          console.log("No such document");
-        }
-      } catch (err) {
-        console.error(err);
+  const getAllPost = async (id: string) => {
+    try {
+      const querySnapshot = await getPostByUserId(id);
+      const tempArr: DocumentResponse[] = [];
+      if (querySnapshot.size > 0) {
+        querySnapshot.forEach((doc) => {
+          const data = doc.data() as PostType;
+          const responseObj: DocumentResponse = {
+            id: doc.id,
+            ...data,
+          };
+          console.log("the response object is", responseObj);
+          tempArr.push(responseObj);
+        });
+        setData(tempArr);
+      } else {
+        console.log("No such document");
       }
-    };
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-    const renderPosts = () => {
-      return data?.map((el) => {
-        return (
-          <div key={el.photos[0].uuid} className="relative">
-            <div className="absolute group transition-all duration-300 bg-transparent hover:bg-slate-950 hover:bg-opacity-75 top-0 bottom-0 left-0 right-0 w-full h-full">
-              <div className="flex flex-col justify-center items-center w-full h-full">
-                <HeartIcon className="hidden group-hover:block fill-white" />
-                <div className="hidden group-hover:block text-white">{el.likes} likes</div>
+  const renderPosts = () => {
+    return data?.map((el) => {
+      return (
+        <div key={el.photos[0].uuid} className="relative">
+          <div className="absolute group transition-all duration-300 bg-transparent hover:bg-slate-950 hover:bg-opacity-75 top-0 bottom-0 left-0 right-0 w-full h-full">
+            <div className="flex flex-col justify-center items-center w-full h-full">
+              <HeartIcon className="hidden group-hover:block fill-white" />
+              <div className="hidden group-hover:block text-white">
+                {el.likes} likes
               </div>
             </div>
-            <img
-              src={`${el.photos[0].cdnUrl}-/progressive/yes/-/scale_crop/300x300/center/`}
-            />
           </div>
-        );
-      });
-    };
-    const editProfile = () => {};
+          <img
+            src={`${el.photos[0].cdnUrl}-/progressive/yes/-/scale_crop/300x300/center/`}
+          />
+        </div>
+      );
+    });
+  };
+  const editProfile = () => {
+    navigate("/edit-profile", { state: userInfo });
+  };
 
-    React.useEffect(() => {
-      if (user != null) {
-        getAllPost(user.uid);
-      }
-    }, [user]);
+  React.useEffect(() => {
+    if (user != null) {
+      getAllPost(user.uid);
+    }
+  }, [user]);
   return (
     <Layout>
       <div className="flex justify-center">
