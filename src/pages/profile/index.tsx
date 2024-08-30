@@ -3,6 +3,7 @@ import Layout from "@/components/layout";
 import { Button } from "@/components/ui/button";
 import { useUserAuth } from "@/context/userAuthContext";
 import { getPostByUserId } from "@/repository/post.service";
+import { getUserProfile } from "@/repository/user.service";
 import { DocumentResponse, PostType, ProfileResponse } from "@/types";
 import { Edit2Icon, HeartIcon } from "lucide-react";
 import * as React from "react";
@@ -70,9 +71,17 @@ const Profile: React.FunctionComponent<IProfileProps> = () => {
     navigate("/edit-profile", { state: userInfo });
   };
 
+  const getUserProfileInfo = async (userId: string) => {
+    const data: ProfileResponse = await getUserProfile(userId);
+    if (data) {
+      setUserInfo(data);
+    }
+  };
+
   React.useEffect(() => {
     if (user != null) {
       getAllPost(user.uid);
+      getUserProfileInfo(user.uid);
     }
   }, [user]);
   return (

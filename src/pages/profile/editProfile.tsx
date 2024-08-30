@@ -6,6 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useUserAuth } from "@/context/userAuthContext";
+import {
+  createUserProfile,
+  updateuserProfile,
+} from "@/repository/user.service";
 import { FileEntry, UserProfile } from "@/types";
 import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -14,13 +18,12 @@ interface IEditProfileProps {}
 
 const EditProfile: React.FunctionComponent<IEditProfileProps> = () => {
   const location = useLocation();
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
   const { id, userId, userBio, displayName, photoURL } = location.state;
   const { user } = useUserAuth();
   const [fileEntry, setFileEntry] = React.useState<FileEntry>({
     files: [],
   });
-  console.log("slected file is ", fileEntry);
 
   const [data, setData] = React.useState<UserProfile>({
     userId,
@@ -31,6 +34,18 @@ const EditProfile: React.FunctionComponent<IEditProfileProps> = () => {
 
   const updateProfile = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
+    try {
+      if (id) {
+        const response = await updateuserProfile(id, data);
+        console.log("User profile updated", response);
+      } else {
+        const response = await createUserProfile(data);
+        console.log("user profile created", response);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    navigate("/profile")
   };
 
   React.useEffect(() => {
@@ -111,7 +126,7 @@ const EditProfile: React.FunctionComponent<IEditProfileProps> = () => {
                     variant={"destructive"}
                     className="mt-8 w-32 mr-8"
                     type="button"
-                    onClick={() => naviagte("/profile")}
+                    onClick={() => navigate("/profile")}
                   >
                     Cancel
                   </Button>
