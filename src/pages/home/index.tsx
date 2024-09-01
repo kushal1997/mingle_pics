@@ -4,7 +4,7 @@ import Stories from "@/components/stories";
 import { Input } from "@/components/ui/input";
 import { useUserAuth } from "@/context/userAuthContext";
 import { getPosts } from "@/repository/post.service";
-import { DocumentResponse } from "@/types";
+import {type DocumentResponse } from "@/types";
 import { Search } from "lucide-react";
 import * as React from "react";
 

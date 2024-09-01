@@ -7,7 +7,7 @@ import {
   type UploadCtxProvider,
 } from "@uploadcare/react-uploader";
 import "@uploadcare/react-uploader/core.css";
-import { FileEntry } from "@/types";
+import {type FileEntry } from "@/types";
 
 interface IFileUploaderProps {
   files: FileEntry;

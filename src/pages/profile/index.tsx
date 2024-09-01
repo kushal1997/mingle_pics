@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useUserAuth } from "@/context/userAuthContext";
 import { getPostByUserId } from "@/repository/post.service";
 import { getUserProfile } from "@/repository/user.service";
-import { DocumentResponse, PostType, ProfileResponse } from "@/types";
+import {type DocumentResponse,type PostType,type ProfileResponse } from "@/types";
 import { Edit2Icon, HeartIcon } from "lucide-react";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";

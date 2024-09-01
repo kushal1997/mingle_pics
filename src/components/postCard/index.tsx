@@ -1,4 +1,4 @@
-import { DocumentResponse } from "@/types";
+import {type DocumentResponse } from "@/types";
 import * as React from "react";
 import {
   Card,
@@ -24,7 +24,7 @@ const PostCard: React.FunctionComponent<IPostCardProps> = ({ data }) => {
   const { user } = useUserAuth();
   const [likesInfo, setLikesInfo] = React.useState<LikesInfoType>({
     likes: data.likes!,
-    isLike: data.userlikes?.includes(user?.uid) ? true : false,
+    isLike: data.userlikes?.includes(user?.uid)! ? true : false,
   });
 
   const updateLike = async (isVal: boolean) => {

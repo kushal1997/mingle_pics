@@ -1,5 +1,5 @@
 import { auth } from "@/firebaseConfig";
-import { ProfileInfo } from "@/types";
+import {type ProfileInfo } from "@/types";
 import {
   GoogleAuthProvider,
   User,

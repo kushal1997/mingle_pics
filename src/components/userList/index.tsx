@@ -1,7 +1,7 @@
 import { avatar } from "@/assets/images";
 import { useUserAuth } from "@/context/userAuthContext";
 import { getAllUsers } from "@/repository/user.service";
-import { ProfileResponse } from "@/types";
+import {type ProfileResponse } from "@/types";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";

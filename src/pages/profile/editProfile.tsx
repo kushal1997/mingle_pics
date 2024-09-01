@@ -11,7 +11,7 @@ import {
   createUserProfile,
   updateuserProfile,
 } from "@/repository/user.service";
-import { FileEntry, ProfileInfo, UserProfile } from "@/types";
+import {type FileEntry,type ProfileInfo,type UserProfile } from "@/types";
 import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 

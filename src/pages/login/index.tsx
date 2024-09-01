@@ -12,7 +12,7 @@ import { Icons } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { userAuthContext, useUserAuth } from "@/context/userAuthContext";
-import { UserLogIn } from "@/types";
+import {type UserLogIn } from "@/types";
 import * as React from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";

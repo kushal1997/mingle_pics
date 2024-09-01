@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useUserAuth } from "@/context/userAuthContext";
 import { createPost } from "@/repository/post.service";
-import { FileEntry, PhotoMeta, PostType } from "@/types";
+import {type FileEntry,type PhotoMeta,type PostType } from "@/types";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
