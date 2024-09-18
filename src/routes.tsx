@@ -7,7 +7,8 @@ import Profile from "./pages/profile";
 import MyPhotos from "./pages/myPhotos";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import EditProfile from "./pages/profile/editProfile";
-import PostPage from "./pages/post";
+import PostPage from "./pages/postPage";
+
 
 export const router = createBrowserRouter([
   {
