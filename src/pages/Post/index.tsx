@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 interface IPostProps {}
 
-const Post: React.FunctionComponent<IPostProps> = () => {
+const PostPage: React.FunctionComponent<IPostProps> = () => {
   const navigate = useNavigate();
   const { user } = useUserAuth();
   const [fileEntry, setFileEntry] = React.useState<FileEntry>({
@@ -103,4 +103,4 @@ const Post: React.FunctionComponent<IPostProps> = () => {
   );
 };
 
-export default Post;
+export default PostPage;

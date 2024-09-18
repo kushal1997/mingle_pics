@@ -7,7 +7,7 @@ import Profile from "./pages/profile";
 import MyPhotos from "./pages/myPhotos";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import EditProfile from "./pages/profile/editProfile";
-import Post from "./pages/post";
+import PostPage from "./pages/post";
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/post",
-        element: <Post />,
+        element: <PostPage />,
         errorElement: <Error />,
       },
       {
