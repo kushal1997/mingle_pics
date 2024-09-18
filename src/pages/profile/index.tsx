@@ -50,6 +50,9 @@ const Profile: React.FunctionComponent<IProfileProps> = () => {
 
   const renderPosts = () => {
     return data?.map((el) => {
+      if (!el.photos || el.photos.length === 0) {
+        return null; // or return some fallback UI
+      }
       return (
         <div key={el.photos[0].uuid} className="relative">
           <div className="absolute group transition-all duration-300 bg-transparent hover:bg-slate-950 hover:bg-opacity-75 top-0 bottom-0 left-0 right-0 w-full h-full">
@@ -72,9 +75,13 @@ const Profile: React.FunctionComponent<IProfileProps> = () => {
   };
 
   const getUserProfileInfo = async (userId: string) => {
-    const data: ProfileResponse = await getUserProfile(userId);
-    if (data.displayName) {
+    const data: ProfileResponse| null | undefined = await getUserProfile(userId);
+    if (data && data.displayName) {
       setUserInfo(data);
+    } else {
+      // Handle the case where data is null or undefined
+      // For example, you might want to reset userInfo or show an error
+      console.error('User profile not found or has no display name');
     }
   };
 
