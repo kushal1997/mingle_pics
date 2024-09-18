@@ -1,4 +1,4 @@
-import {type DocumentResponse } from "@/types";
+import { type DocumentResponse } from "@/types";
 import * as React from "react";
 import {
   Card,
@@ -24,7 +24,7 @@ const PostCard: React.FunctionComponent<IPostCardProps> = ({ data }) => {
   const { user } = useUserAuth();
   const [likesInfo, setLikesInfo] = React.useState<LikesInfoType>({
     likes: data.likes!,
-    isLike: data.userlikes?.includes(user?.uid)! ? true : false,
+    isLike: data.userlikes?.includes(user?.uid!) ? true : false,
   });
 
   const updateLike = async (isVal: boolean) => {
@@ -32,10 +32,12 @@ const PostCard: React.FunctionComponent<IPostCardProps> = ({ data }) => {
       likes: isVal ? likesInfo.likes + 1 : likesInfo.likes - 1,
       isLike: !likesInfo.isLike,
     });
-    if (isVal) {
-      data.userlikes?.push(user?.uid);
-    } else {
-      data.userlikes?.splice(data.userlikes.indexOf(user?.uid));
+    if (user && user.uid) {
+      if (isVal) {
+        data.userlikes?.push(user.uid);
+      } else {
+        data.userlikes?.splice(data.userlikes.indexOf(user.uid));
+      }
     }
     await updateLikesOnPost(
       data.id!,
@@ -75,7 +77,8 @@ const PostCard: React.FunctionComponent<IPostCardProps> = ({ data }) => {
           </div>
           <div className="w-full text-sm">{likesInfo.likes} Likes</div>
           <div className="w-full text-sm">
-            <span className=" font-semibold">{data.username} : </span> {data.caption}
+            <span className=" font-semibold">{data.username} : </span>{" "}
+            {data.caption}
           </div>
         </CardFooter>
       </Card>

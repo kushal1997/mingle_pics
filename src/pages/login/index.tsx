@@ -11,7 +11,7 @@ import {
 import { Icons } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { userAuthContext, useUserAuth } from "@/context/userAuthContext";
+import { userAuthContext } from "@/context/userAuthContext";
 import {type UserLogIn } from "@/types";
 import * as React from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";

@@ -33,7 +33,7 @@ export interface DocumentResponse{
     caption?:string;
     photos?:PhotoMeta[];
     likes?:number;
-    userlikes?:[];
+    userlikes?:string[];
     userId?:string | null;
     username?:string,
     photoURL?:string,
