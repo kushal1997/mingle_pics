@@ -3,11 +3,11 @@ import Login from "./pages/login";
 import Error from "./pages/error";
 import SignUp from "./pages/signUp";
 import Home from "./pages/home";
-import Post from "./pages/post";
 import Profile from "./pages/profile";
 import MyPhotos from "./pages/myPhotos";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import EditProfile from "./pages/profile/editProfile";
+import Post from "./pages/post";
 
 export const router = createBrowserRouter([
   {
